@@ -1,0 +1,15 @@
+python3 -m venv venv-whisper
+source venv-whisper/bin/activate
+curl -fsSL https://ollama.com/install.sh | sh
+ollama --version
+ollama pull smollm
+cat Modelfile
+
+FROM smollm
+PARAMETER temperature 0.7
+
+vim Modelfile
+ollama create smollm-custom -f Modelfile
+ollama run smollm-custom
+
+curl http://127.0.0.1:11434/api/tags
